@@ -20,9 +20,9 @@ func median(a, b []int) float64{
 		return float64(a[0] + b[0])/2
 	}
 	var median float64
-	var v [2][5]int
+	var v [2][5]int   // v[i] = [start, end, med_ind, med_val, val(med_ind+1)]
 	a_pad, b_pad := make([]int, len(a)+2), make([]int, len(b)+2)
-        copy(a_pad[1:len(a_pad)-1], a)
+        copy(a_pad[1:len(a_pad)-1], a)   //copying can be ignored and still searching through a_pad can be made in o(1)
 	copy(b_pad[1:len(b_pad)-1] ,b)
 	a_pad[len(a_pad)-1], b_pad[len(b_pad)-1] = math.MaxInt64, math.MaxInt64
 	v[0][0], v[1][0] = 1, 1
@@ -36,7 +36,6 @@ func median(a, b []int) float64{
 			v[0][2], v[1][2] = (v[0][0]+v[0][1])/2, (v[1][0]+v[1][1])/2
 			v[0][3], v[1][3] = a_pad[v[0][2]], b_pad[v[1][2]]
                         v[0][4], v[1][4] = a_pad[v[0][2]+1], b_pad[v[1][2]+1]
-			fmt.Println("taken", v[taken][3], "notTAken",v[1-taken][3])
 			if v[taken][3] < v[1-taken][3]{
 				taken = 1 - taken
 			}else if v[taken][3] > v[1-taken][4]{
@@ -72,3 +71,27 @@ func compare(i string, a int, b int) int{
 		return b
 	}
 }
+
+/* for different length arrays shifts median according to the smaller length array and calculate median based on odd or even length of the resulting array
+smaller length arr attributes - v[0]
+
+Loop:
+                for v[0][0] <= v[0][1] {
+			d = v[0][2] - (v[0][0]+v[0][1])/2
+                        v[0][2], v[1][2] = (v[0][0]+v[0][1])/2, v[1][2] + d
+			v[0][3], v[1][3] = a_pad[v[0][2]], b_pad[v[1][2]]
+                        v[0][4], v[1][4] = a_pad[v[0][2]+1], b_pad[v[1][2]+1]
+                        
+			if v[taken][3] < v[1-taken][3]{
+                                taken = 1 - taken
+                        }else if v[taken][3] > v[1-taken][4]{
+				if taken == 0 {
+					v[0][1] = v[0][2]
+				}else{
+                                	v[0][0] = v[0][2] + 1
+				}
+                        }else {
+                                break Loop
+                        }
+                }
+*/
