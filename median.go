@@ -22,7 +22,7 @@ func median(a, b []int) float64{
 	var median float64
 	var v [2][5]int   // v[i] = [start, end, med_ind, med_val, val(med_ind+1)]
 	a_pad, b_pad := make([]int, len(a)+2), make([]int, len(b)+2)
-        copy(a_pad[1:len(a_pad)-1], a)   //copying can be ignored and still searching through a_pad can be made in o(1)
+        copy(a_pad[1:len(a_pad)-1], a)   //copying can be ignored and still searching through a_pad can be made in O(1)
 	copy(b_pad[1:len(b_pad)-1] ,b)
 	a_pad[len(a_pad)-1], b_pad[len(b_pad)-1] = math.MaxInt64, math.MaxInt64
 	v[0][0], v[1][0] = 1, 1
