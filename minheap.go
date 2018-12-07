@@ -5,8 +5,7 @@ import (
 	"math"
 )
 
-var a = []int{4,2,7,1,3,9,10,5,6,8}
-//var heap_arr = make([]int, len(a))
+var a = []int{7,10,4,3,20,15}
 var heap_arr []int
 
 func main(){
@@ -16,22 +15,9 @@ func main(){
 	Printheap()
 	deletefromheap()
 	Printheap()
-	deletefromheap()
-        Printheap()
-	deletefromheap()
-        Printheap()
-        deletefromheap()
-        Printheap()
 }
 
 func insertintoheap(v, l int){
-	/*  //if heap_arr is an array not slice
-	heap_arr[l] = v
-	if l == 0 {
-		return
-	}
-	*/
-
 	if l == len(heap_arr){
 		heap_arr = append(heap_arr, v)
 	}else {
@@ -78,28 +64,7 @@ func PrintSpaces(space int){
 		fmt.Printf(" ")
 	}
 }
-/*
-func deletefromheap(i, v int) { //parent, heap_arr[len(heap_arr)-1]
-	if i == 0{
-		heap_arr[i] = v
-		heap_arr = heap_arr[:(len(heap_arr)-1)]
-	}
-	left_child := 2*i + 1
-	right_child := 2*i + 2
-	if len(heap_arr[left_child:]) == 0{
-		heap_arr[i] = v
-		return
-	}else if (len(heap_arr[right_child:]) == 0 || heap_arr[right_child] > heap_arr[left_child]){
-		fmt.Println(left_child)
-		heap_arr[i] = heap_arr[left_child]
-		deletefromheap(left_child, v)
-	}else {
-		heap_arr[i] = heap_arr[right_child]
-		deletefromheap(right_child, v)
-	}
-	return
-}
-*/
+
 func deletefromheap(){
 	if len(heap_arr) == 0 {
 		return
