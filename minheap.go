@@ -15,6 +15,10 @@ func main(){
 	Printheap()
 	deletefromheap()
 	Printheap()
+	deletefromheap()
+        Printheap()
+	deletefromheap()
+        Printheap()
 }
 
 func insertintoheap(v, l int){
