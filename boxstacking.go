@@ -1,3 +1,4 @@
+
 package main
 
 import "fmt"
@@ -102,4 +103,3 @@ func Printfaces(height []int, max_index int){
 		}
 	}
 }
-

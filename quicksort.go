@@ -3,20 +3,22 @@ package main
 import "fmt"
 
 func main(){
-	a := []int{3,7,6,8,4,2,1,9}
-	quicksort(a,0,len(a)-1)
+	//a := []int{3,7,6,8,4,2,1,9}
+	//a := []int{8,1,4,2,6}
+	a := []int{5,6,7,3,1}
+	Quicksort(a,0,len(a)-1)
         fmt.Println(a)
 }
 
-func quicksort(a []int, low, high int){
+func Quicksort(a []int, low, high int){
 	var pivot_ind int
 	if low <= high {
 		pivot_ind = partition(a, low, high)
 	}else{
 		return
 	}
-	quicksort(a, low, pivot_ind-1)
-	quicksort(a, pivot_ind+1, high)
+	Quicksort(a, low, pivot_ind-1)
+	Quicksort(a, pivot_ind+1, high)
 }
 
 
