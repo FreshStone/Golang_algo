@@ -19,7 +19,7 @@ func main(){
 	root.left.right.right = &node{val:5}
 //	printtree(root)
 // 	fmt.Println()
-	fmt.Println(lca(root, 9, 5))
+	fmt.Println(lca(root, 9, 5)) //negative value means one/both value doesnt exist in the tree
 }
 
 func printtree(root *node){
