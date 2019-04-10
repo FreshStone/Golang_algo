@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"math"
 )
-//var a = []int{6,1,3,1}; var w = 8 //len of consecutive words
-var a = []int{3,2,2,5}
+var a = []int{6,1,3,1}; var w = 8 //len of consecutive words
+//var a = []int{3,2,2,5}
 var index = make([]int, len(a))
-var w = 5 //max width of each line
+//var w = 5 //max width of each line
 
 
 func main(){
