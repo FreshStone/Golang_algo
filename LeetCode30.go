@@ -36,8 +36,8 @@ func startingindex(s string, words []string)[]int{
     v, ok = m[s[i:i+l]]
     if ok{
       for j = 0; j < len(store[0]); j++{ //check for prior occurrence of the matched word
-        if store[0][j] == v{             //  if words[] contain duplicates words than-> m[string][]int
-          store[0] = store[0][j+1:]      //  if store[0][j] = v[0]{   //v -> []int; initialize cnt = 0
+        if store[0][j] == v{             //  if words[] contain duplicates words than m = map[string][]int
+          store[0] = store[0][j+1:]      //  if store[0][j] = v[0]{   //initialize cnt = 0
           break                          //          if cnt == 0{ firstOccurrence = j}; cnt += 1
         }                                //          if cnt == len(v){ store[0] = store[0][firstOccurrence+1:] }
       }                                  //   }
