@@ -19,7 +19,7 @@ func main(){
   ans := []int{6,1,3,3,1,0,1,3,0,1}
   for i := 0 ; i < len(ans); i++{
     if ans[i] != captainAmerica(N[i], testGraphs[i]){//captainAmerica_rec(N[i], testGraphs[i]){
-      fmt.Println("error", N[i], testGraphs[i])
+      fmt.Println("error", N[i], testGraphs[i], "expected", ans[i])
     }else{
       fmt.Println("correct answer")
     }
@@ -37,15 +37,15 @@ func captainAmerica_rec(n int, edges [][]int)int{
     return 1
   }
 
-  var i, j, x, y int
+  var i, j, y int
   var time int = 1
-  var out_zero, found bool
+  var found bool
   visited := make([]int, n+1) //because node numbering starts from 1
   low := make([]int, n+1)
   in_stack := make([]bool, n+1)
   stack := []int{-1}
   graph := make([][]int, n+1)
-  m := make(map[int][]int)
+  onz := make(map[int]bool)//out_degree of scc is zero or not
 
   for ; i < len(edges); i++{
     if len(graph[edges[i][0]]) == 0{
@@ -69,42 +69,34 @@ func captainAmerica_rec(n int, edges [][]int)int{
       rec(i, &time, visited, low, &stack, in_stack, graph)
     }
   }
-
   //fmt.Println(low)
-  for i = 1; i < n+1; i++{
-    if _, found = m[low[i]]; found{
-      m[low[i]] = append(m[low[i]], i)
-    }else{
-      m[low[i]] = []int{i}
+
+  /*labelling SCC's with out degree = 0 */
+  for i =0 ; i < len(edges); i++{
+    if low[edges[i][0]] != low[edges[i][1]]{
+      onz[low[edges[i][0]]] = true
     }
   }
-  //fmt.Println(m)
-  found = false
-  out_zero = true
-  for i = range m{
-    for j = 0; j < len(m[i]); j++{
-      for x = 0; x < len(graph[m[i][j]]); x++{
-        if low[graph[m[i][j]][x]] != i{
-          out_zero = false
-          break
-        }
-      }
-      if !out_zero{
-        break
-      }
-    }
-
-    if out_zero{
+  //fmt.Println(onz)
+  /*if there are more than 1 SCC with out degree 0 than return 0 
+  else 
+  return the number of nodes in that SCC (out degree = 0)*/
+  for i, j = 1, 0; i < n+1; i++{
+    if onz[low[i]] == false{ //out degree of scc is zero 
       if found{
-        return 0
+        if low[i] == y{
+          j += 1
+        }else{
+          return 0
+        }
+      }else{
+        found = true
+        y = low[i]
+        j = 1
       }
-      found = true
-      y = len(m[i])
     }
-    out_zero = true
   }
-
-  return y
+  return j
 }
 
 func rec(node int, time *int, visited []int, low []int, stack *[]int, in_stack []bool, graph [][]int){
@@ -145,7 +137,7 @@ func captainAmerica(n int, edges [][]int)int{
   }
 
   var i, j, x, y int
-  var out_zero, found bool
+  var found bool
   var time int = 1
   visited := make([]int, n+1) //because node numbering starts from 1
   low := make([]int, n+1)
@@ -153,7 +145,7 @@ func captainAmerica(n int, edges [][]int)int{
   rec_stack := [][]int{{}} //stack[i] = []int{node, neighbor_to_visit}
   stack := []int{-1}
   graph := make([][]int, n+1)
-  m := make(map[int][]int) //low_id -> strongly connected components
+  onz := make(map[int]bool) //low_id -> strongly connected components
 
   for ; i < len(edges); i++{
     if len(graph[edges[i][0]]) == 0{
@@ -211,42 +203,32 @@ func captainAmerica(n int, edges [][]int)int{
     }
   }
   //fmt.Println(low)
-  for i = 1; i < n+1; i++{
-    if _, found = m[low[i]]; found{
-      m[low[i]] = append(m[low[i]], i)
-    }else{
-      m[low[i]] = []int{i}
+  /*labelling SCC's with out degree = 0*/
+  for i =0 ; i < len(edges); i++{
+    if low[edges[i][0]] != low[edges[i][1]]{
+      onz[low[edges[i][0]]] = true
     }
   }
-
-  found = false
-  out_zero = true
-  //fmt.Println(m)
-  for i = range m{
-    for j = 0; j < len(m[i]); j++{
-      for x = 0; x < len(graph[m[i][j]]); x++{
-      //  fmt.Println("edge", m[i][j], "->", graph[m[i][j]][x])
-        if low[graph[m[i][j]][x]] != i{
-          out_zero = false
-          break
-        }
-      }
-      if !out_zero{
-        break
-      }
-    }
-
-    if out_zero{
+  //fmt.Println(onz)
+  /*if there are more than 1 SCC with out degree 0 than return 0 
+  else 
+  return the number of nodes in that SCC*/
+  for i, j = 1, 0; i < n+1; i++{
+    if onz[low[i]] == false{ //out degree of scc is zero 
       if found{
-        return 0
+        if low[i] == y{
+          j += 1
+        }else{
+          return 0
+        }
+      }else{
+        found = true
+        y = low[i]
+        j = 1
       }
-      found = true
-      y = len(m[i])
     }
-    out_zero = true
   }
-
-  return y
+  return j
 }
 
 func min(a, b int)int{
