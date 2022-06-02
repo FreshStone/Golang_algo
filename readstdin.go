@@ -75,14 +75,14 @@ func main() {
     defer stdout.Close()
 
     writer := bufio.NewWriterSize(stdout, 1024 * 1024)
-
+    //val, _ := strconv.Atoi(readLine(reader))
     tTemp, err := strconv.ParseInt(readLine(reader), 10, 64)
     checkError(err)
     t := int32(tTemp)
 
     for tItr := 0; tItr < int(t); tItr++ {
         nm := strings.Split(readLine(reader), " ")
-
+        //val, _ := strconv.Atoi(nm[0])
         nTemp, err := strconv.ParseInt(nm[0], 10, 64)
         checkError(err)
         n := int32(nTemp)
