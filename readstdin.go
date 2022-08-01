@@ -64,7 +64,23 @@ func main() {
 */
 
 }
-
+func read2Darray(){
+ 	    var i, j, rows, columns int
+ 13         fmt.Scanf("%d %d", &rows, &columns)
+ 14         reader := bufio.NewReader(os.Stdin)
+ 15         fmt.Println(rows, columns)
+ 16         array := make([][]byte, rows)
+ 17         for i = 0; i < rows ; i++{ 
+ 18                 array[i] = make([]byte, columns)
+ 19 //              array[i], _ = reader.ReadSlice('\n')//pointer of     byte array is passed to array[i]. so all array[i] will point     to the same byte array which contains values of last row of input
+ 20                 for j = 0; j < columns; j++{
+ 21                        array[i][j], _ = reader.ReadByte()
+ 22                 }       
+ 23                 reader.ReadByte()
+ 24         }
+ 25         
+ 26         fmt.Println(array)
+}
 /*
 func main() {
     reader := bufio.NewReaderSize(os.Stdin, 1024 * 1024)
